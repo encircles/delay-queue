@@ -1,0 +1,20 @@
+{
+    "name": "encircles/delay-queue",
+    "description": "delay queue",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "encircles",
+            "email": "encircles@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Encircles\\SnowFlake\\": "src/SnowFlake"
+        }
+    }
+}

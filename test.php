@@ -6,7 +6,7 @@
  * Time: 14:41
  */
 
-require_once '../vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 try {
     $snow = new \Encircles\SnowFlake\SnowFlake(1, 1);

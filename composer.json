@@ -17,5 +17,8 @@
         "psr-4": {
             "Encircles\\SnowFlake\\": "src/SnowFlake"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
     }
 }

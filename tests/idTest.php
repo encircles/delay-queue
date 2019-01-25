@@ -11,6 +11,7 @@ namespace tests;
 
 use Encircles\SnowFlake\SnowFlake;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class idTest extends TestCase
 {
@@ -19,11 +20,8 @@ class idTest extends TestCase
      */
     public function testGenerateID()
     {
-        try {
-            $snow = new SnowFlake(0, 0);
-            $this->assertNotEmpty($snow->generateID());
-        } catch (\Exception $e) {
-            throw new \Exception('exception');
-        }
+        $snow = new SnowFlake(1, 1);
+        $id = $snow->generateID();
+        $this->assertNotEmpty($id);
     }
 }

@@ -29,9 +29,9 @@ class SnowFlake
     /**
      * Offset from Unix Epoch
      * Unix Epoch : January 1 1970 00:00:00 GMT
-     * Epoch Offset : January 1 2000 00:00:00 GMT
+     * Epoch Offset : January 1 2019 00:00:00 GMT
      */
-    const EPOCH_OFFSET = 1483200000000;
+    const EPOCH_OFFSET = 1546272000000;
     const SIGN_BITS = 1;
     const TIMESTAMP_BITS = 41;
     const DATACENTER_BITS = 5;

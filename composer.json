@@ -12,11 +12,12 @@
     "require": {
         "php": ">=7.0",
         "ext-redis": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Encircles\\SnowFlake\\": "src/SnowFlake"
+            "Encircles\\": "src/"
         }
     },
     "require-dev": {

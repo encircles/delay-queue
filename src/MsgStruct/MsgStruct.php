@@ -23,8 +23,8 @@ class MsgStruct
     private $delay;
     /*优先级*/
     private $priority;
-    /*消费端消费的ttl*/
-    private $ttl;
+    /*消费端消费的ttl 超时时间 ms*/
+    private $ttl = 30000;
     /*消息体*/
     private $body;
     /*创建时间*/
@@ -43,23 +43,22 @@ class MsgStruct
         $this->config = $config;
     }
 
-    public function create($topic, $delay, $ttl, $body, $priority = 0)
+    public function create($topic, $delay, $body, $priority = 0)
     {
         try {
-
+            $timestamp = $this->getUnixTimestamp();
             $this->id = (new SnowFlake(0, 0))->generateID();
             $this->topic = $topic;
-            $this->delay = $delay;
-            $this->ttl = $ttl;
+            $this->delay = $timestamp + $delay;
             $this->body = $body;
             $this->priority = $priority;
-            $this->createTime = $this->getUnixTimestamp();
+            $this->createTime = $timestamp;
             $this->status = 0;
 
         } catch (\Exception $e) {
         }
 
-    }
+}
 
     public static function encode()
     {
@@ -75,4 +74,86 @@ class MsgStruct
     {
         return floor(microtime(true) * 1000);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTopic()
+    {
+        return $this->topic;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBizKey()
+    {
+        return $this->bizKey;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelay()
+    {
+        return $this->delay;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTtl()
+    {
+        return $this->ttl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateTime()
+    {
+        return $this->createTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
+    }
+
+
 }

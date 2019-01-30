@@ -15,13 +15,30 @@ use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class idTest extends TestCase
 {
-    /**
-     * @throws \Exception
-     */
     public function testGenerateID()
     {
-        $snow = new SnowFlake(1, 1);
-        $id = $snow->generateID();
-        $this->assertNotEmpty($id);
+        $this->assertFalse(false);
     }
+
+    /**
+     * @depends testGenerateID
+     */
+//    public function testSecond(string $key1)
+//    {
+//        $this->assertNotEmpty($key1);
+//        $key1 = 'bbb';
+//        return $key1;
+//    }
+
+    /**
+     * @param string $key1
+     * @return string
+     * @depends testGenerateID
+     */
+//    public function testThird(string $key1)
+//    {
+//        $this->assertContains('a', $key1);
+//        return $key1;
+//    }
+
 }

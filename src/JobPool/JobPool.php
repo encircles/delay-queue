@@ -18,12 +18,12 @@ class JobPool
     public function __construct()
     {
         $this->conn = new \Redis();
-        $this->conn->connect('127.0.0.1', 6379);
+        $this->conn->connect('127.0.0.1', 16379);
         $this->conn->auth('123456');
     }
 
     public function add(string $topic, MsgStruct $msg)
     {
-        $this->conn->hSet($this->queueKey . $topic, $msg->getId(), serialize($msg));
+        return $this->conn->hSet($this->queueKey . $topic, $msg->getId(), serialize($msg));
     }
 }

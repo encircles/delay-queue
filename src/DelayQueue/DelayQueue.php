@@ -19,18 +19,20 @@ class DelayQueue
     public function __construct()
     {
         $this->conn = new \Redis();
-        $this->conn->connect('127.0.0.1', 6379);
+        $this->conn->connect('127.0.0.1', 16379);
         $this->conn->auth('123456');
     }
 
     public function push(MsgStruct $msg)
     {
-        $this->conn->zAdd($this->queueKey . $msg->getTopic(), $msg->getDelay(), $msg->getId());
+        return $this->conn->zAdd($this->queueKey . $msg->getTopic(), $msg->getDelay(), $msg->getId());
     }
 
     public function pop(string $topic)
     {
-        $res = $this->conn->zRangeByScore($this->queueKey . $topic, 0, microtime(true) * 1000);
+        $now = microtime(true) * 1000;
+        $res = $this->conn->zRangeByScore($this->queueKey . $topic, 0, $now);
+        $this->conn->zDeleteRangeByScore($this->queueKey . $topic, 0, $now);
         return $res;
     }
 }

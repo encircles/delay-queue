@@ -9,6 +9,7 @@
 namespace Encircles\DelayQueue;
 
 
+use Encircles\RedisConfig;
 use Encircles\MsgStruct\MsgStruct;
 
 class DelayQueue
@@ -16,11 +17,11 @@ class DelayQueue
     private $queueKey = 'DELAY_BUCKET:';
     private $conn;
 
-    public function __construct()
+    public function __construct(RedisConfig $config)
     {
         $this->conn = new \Redis();
-        $this->conn->connect('127.0.0.1', 16379);
-        $this->conn->auth('123456');
+        $this->conn->connect($config->getHost(), $config->getPort());
+        $this->conn->auth($config->getAuth());
     }
 
     public function push(MsgStruct $msg)

@@ -8,6 +8,7 @@
 
 namespace Encircles\JobPool;
 
+use Encircles\RedisConfig;
 use Encircles\MsgStruct\MsgStruct;
 
 class JobPool
@@ -15,15 +16,38 @@ class JobPool
     private $queueKey = 'DELAY_POOL:';
     private $conn;
 
-    public function __construct()
+    /**
+     * JobPool constructor.
+     * @param RedisConfig $config
+     */
+    public function __construct(RedisConfig $config)
     {
         $this->conn = new \Redis();
-        $this->conn->connect('127.0.0.1', 16379);
-        $this->conn->auth('123456');
+        $this->conn->connect($config->getHost(), $config->getPort());
+        $this->conn->auth($config->getAuth());
     }
 
+    /**
+     * @param string $topic
+     * @param MsgStruct $msg
+     * @return bool|int
+     */
     public function add(string $topic, MsgStruct $msg)
     {
         return $this->conn->hSet($this->queueKey . $topic, $msg->getId(), serialize($msg));
+    }
+
+    /**
+     * @param string $topic
+     * @param $id
+     * @return MsgStruct
+     */
+    public function get(string $topic, $id)
+    {
+        $msgStr = $this->conn->hGet($this->queueKey . $topic, $id);
+        if (empty($msgStr)) {
+            return (new MsgStruct([]));
+        }
+        return unserialize($msgStr);
     }
 }

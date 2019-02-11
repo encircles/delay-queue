@@ -9,6 +9,7 @@
 namespace Encircles\ReadyQueue;
 
 
+use Encircles\RedisConfig;
 use Encircles\MsgStruct\MsgStruct;
 
 class ReadyQueue
@@ -16,11 +17,11 @@ class ReadyQueue
     private $queueKey = 'DELAY_READY:';
     private $conn;
 
-    public function __construct()
+    public function __construct(RedisConfig $config)
     {
         $this->conn = new \Redis();
-        $this->conn->connect('127.0.0.1', 16379);
-        $this->conn->auth('123456');
+        $this->conn->connect($config->getHost(), $config->getPort());
+        $this->conn->auth($config->getAuth());
     }
 
     public function push(string $topic, string $id)
@@ -28,8 +29,8 @@ class ReadyQueue
         return $this->conn->lPush($this->queueKey . $topic, $id);
     }
 
-    public function pop()
+    public function pop(string $topic)
     {
-
+        return $this->conn->rPop($this->queueKey . $topic);
     }
 }

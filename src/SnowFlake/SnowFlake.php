@@ -29,7 +29,7 @@ class SnowFlake
     private static $lastTimestamp = 0;
     private static $lastSequence  = 0;
     private static $sequenceMask  = 4095;
-    private static $twepoch       = 1508945092000;
+    private static $twepoch       = 1546272000000;
     /**
      * 生成基于雪花算法的随机编号
      * @param int $dataCenterID 数据中心ID 0-31

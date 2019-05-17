@@ -47,7 +47,7 @@ class MsgStruct
     {
         try {
             $timestamp = $this->getUnixTimestamp();
-            $this->id = (new SnowFlake(0, 0))->generateID();
+            $this->id = SnowFlake::make(0, 0);
             $this->topic = $topic;
             $this->delay = $timestamp + $delay;
             $this->body = $body;

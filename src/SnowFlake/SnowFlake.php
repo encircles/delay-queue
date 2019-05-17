@@ -32,7 +32,6 @@ class SnowFlake
     private static $twepoch       = 1508945092000;
     /**
      * 生成基于雪花算法的随机编号
-     * @author : evalor <master@evalor.cn>
      * @param int $dataCenterID 数据中心ID 0-31
      * @param int $workerID     任务进程ID 0-31
      * @return int 分布式ID
@@ -53,7 +52,6 @@ class SnowFlake
     }
     /**
      * 反向解析雪花算法生成的编号
-     * @author : evalor <master@evalor.cn>
      * @param int|float $snowFlakeId
      * @return \stdClass
      */
@@ -69,7 +67,6 @@ class SnowFlake
     }
     /**
      * 等待下一毫秒的时间戳
-     * @author : evalor <master@evalor.cn>
      * @param $lastTimestamp
      * @return float
      */
@@ -83,7 +80,6 @@ class SnowFlake
     }
     /**
      * 获取毫秒级时间戳
-     * @author : evalor <master@evalor.cn>
      * @return float
      */
     private static function timeGen()
